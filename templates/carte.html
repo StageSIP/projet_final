@@ -12,18 +12,45 @@
     <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.4.3/build/ol.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Visumet</title>
+    <style>
+        header>div>div {
+            border-bottom: 2px skyblue solid;
+            width: auto;
+            height: auto;
+            margin-left: 4px;
+            margin-right: 4px;
+            padding-left: 4px;
+            padding-right: 4px;
+        }
+        
+        .header {
+            width: 100%;
+            height: 50px;
+            background-color: grey;
+            padding-bottom: 10px;
+            padding-top: 10px;
+        }
+        
+        #compte {
+            float: right;
+            margin-right: 20px;
+            display: flex;
+        }
+    </style>
 </head>
 
-<body>
-    <div>
-        <ul>
-            <li>Bienvenue, {{ request.user.username }} </li>
-            <li><a href="#">Mon compte</a></li>
-            <li>
-                <a href="/deconnexion">deconnexion</a>
-            </li>
+<body style="background-color: #fefefe;">
+    <header class="header" style="display: flex;">
+        Bienvenue, {{ request.user.username }}
+        <div id="compte">
+            <div class=""><a href="/compte">Mon compte</a></div>
+            <div class=""><a href="/deconnexion">deconnexion</a></div>
+        </div>
 
-        </ul>
+
+
+    </header>
+
     </div>
     <div id="map" class="map"></div>
     <script type="text/javascript">

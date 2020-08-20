@@ -26,5 +26,6 @@ urlpatterns = [
     path('connexion/', temperature.views.connexion),
     path('verify_connect/',temperature.views.valider_inscription),
     path('inscription/',temperature.views.inscription),
-    path('deconnexion/',temperature.views.deconnexion)
+    path('deconnexion/',temperature.views.deconnexion),
+    path('compte/',temperature.views.compte),
 ]
