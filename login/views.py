@@ -27,10 +27,9 @@ def connexion(request):
             return redirect('/carte')
 
         else:
-            reponse= """
-            Vous n'êtes pas enregistré; Veuillez vous enregistrer d'abord!!!
-            """
-            return HttpResponse(reponse)
+            error= {"error":"Les identifiants ne sont pas reconnus"}
+    
+            return render(request, 'login/acceuil.html', error)
     else:
         return(acceuil(request))
 
