@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion | Ministère de l'Equipement, du Transport, de la Logistique et de l'Eau RSS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <style>
+        body{
+            margin: 0;
+            background-color: #4EA8D5;
+            font-family: 'Roboto', sans-serif;
+        }
+        header{
+            background-color: #fff;
+        }
+        #logo1{
+            width: 80px;
+            margin: 38px 61px;
+        }
+        #logo2{
+            float: right;
+            width: 85px;
+            margin: 38px 61px;
+        }
+        section{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        form{
+            display: flex;
+            box-sizing: border-box;
+            flex-direction: column;
+            padding: 0 60px;
+            margin: 100px 0;
+            width: 376px;
+            min-height: 397px;
+            background: #FFFFFF;
+            border-radius: 89px;
+        }
+        #title{
+            text-align: center;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 22pt;
+            color: #4EA8D5;
+        }
+        .label{
+            font-weight: normal;
+            font-size: 22px;
+            line-height: 33px;
+        }
+        .input{
+            height: 40px;
+            border: 1px solid #000000;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+        #submit{
+            background: #04A3F2;
+            box-shadow: 0px 9px 12px rgba(0, 0, 0, 0.25);
+            border-radius: 17px;
+            width: 180px;
+            height: 48px;
+            font-size: 14pt;
+            border: none;
+            margin: 30px auto;
+            color: #fff;
+        }
+        #submit:hover{
+            cursor: pointer;
+        }
+        #error{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img id="logo1" src="{% static 'login/logo1.jpg' %}" alt="Direction nationale de la météorologie">
+        <img id="logo2" src="{% static 'login/logo2.png' %}" alt="Royaume du maroc">
+    </header>
+    <section>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <h1 id="title">Authentifiction</h1>
+            <label class="label" for="username">Nom d'utilisateur</label>
+            <input class="input" id="username" name="username" type="text">
+            <label class="label" for="password">Mot de passe</label>
+            <input class="input" id="password" name="password" type="password">
+            <div id="error">{{error}}</div>
+            <button id="submit" type="submit">Se conntecter</button>
+        </form>
+    </section>
+</body>
+</html>

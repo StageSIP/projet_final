@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'accueil/css/ol.css' %}">
+    <link rel="stylesheet" href="{% static 'accueil/styles.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Accueil</title>
+</head>
+<body>
+    <script src="{% static 'accueil/build/ol.js' %}"></script>
+    <div id="map"></div>
+    <div id="user">
+        <img src="{% static 'accueil/img/user.svg' %}" alt="">
+    </div>
+    <div id="ham">
+        <img src="{% static 'accueil/img/ham.svg' %}" alt="">
+    </div>
+    <div id="shadow" ></div>
+    <div id="side_menu" >
+        <div id="profile">
+            <img src="{% static 'accueil/img/user.svg' %}" alt="">
+            <h1>{{request.user.last_name}} {{request.user.first_name}}</h1>
+        </div>
+        <div id="logout">
+            <a href="/deconnexion">
+                <img src="{% static 'accueil/img/logout.svg' %}" alt="" srcset="">
+            </a>
+        </div>
+        <div id="menu">
+            <ul>
+                <li><a href="">Visualisation des données des modèles atmosphériques</a></li>
+                <li><a href="">Visualisation des données des modèles de vagues</a></li>
+                <li><a href="">Visualisation des données </a></li>
+                <li><a href="">Visualisation des données radar</a></li>
+                <li><a href="">Visualisation des données foudre</a></li>
+                <li><a href="">Visualisation des données d'observation</a></li>
+                <li><a href="">Profil vertical </a></li>
+                <li><a href="">Météogramme des données observées ou prévues </a></li>
+                <li><a href="">Visualisation des TEMSI</a></li>
+                <li><a href="">Production des TEMSI</a></li>
+                <li><a href="">Production des Cartes NEBUL</a></li>
+            </ul>
+        </div>
+        <div id="close_btn"><img src="{% static 'accueil/img/close.svg' %}" alt="" ></div>
+        <script src="{% static 'accueil/index.js' %}"></script>
+    </div>
+</body>
+</html>

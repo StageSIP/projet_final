@@ -1,0 +1,151 @@
+body{
+    margin: 0;
+    height: 100%;
+    font-family: 'Montserrat', sans-serif;
+}
+html{height: 100%;}
+#map {
+    height: 100%;
+    width: 100%;
+  }
+#user{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 10px;
+    left: 60px;
+    border: grey 2px solid;
+    border-radius: 50%;
+}
+#ham{
+    width: 20px;
+    height: 20px;
+    padding: 4px 10px;
+    background-color: #fff;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
+    border: #dadce0 2px solid;
+    border-radius: 4px;
+}
+#shadow{
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 0;
+    transition: 0.5s;
+}
+#side_menu{
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    background-color: #fff;
+    overflow: hidden;
+    width: 0;
+    transition: width 2s;
+}
+#profile{
+    position: relative;
+    text-align: center;
+    font-size: 12px;
+    width: 100%;
+    height: 200px;
+    padding: 20px 0;
+    background-color: rgb(140, 204, 209);
+}
+#profile img{
+    height: 60%;
+}
+#menu{
+    position: absolute;
+    overflow-y: scroll;
+    height: auto;
+    bottom: 0;
+    top: 240px;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+#menu ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+#menu li{
+    padding: 10px 0 10px 20px;
+    margin-top: 2px;
+    border-left: black 10px solid;
+}
+#menu li:hover{
+    border-left: black 15px solid;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+#close_btn{
+    width: 20px;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
+}
+@keyframes ShowMenu {
+    from {width: 0px;}
+    to {width: 400px;}
+}
+@keyframes HideMenu {
+    from {width: 400px;}
+    to {width: 0;}
+}
+@keyframes ShowShadow {
+    from {opacity: 0;z-index: -1;}
+    to {opacity: 1;z-index: 1;}
+}
+@keyframes HideShadow {
+    from {opacity: 1;z-index: 1;}
+    to {opacity: 0;z-index: -1;}
+}
+.show-menu{
+    animation-name: ShowMenu;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+.hide-menu{
+    animation-name: HideMenu;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+.show-shadow{
+    animation-name: ShowShadow;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+.hide-shadow{
+    animation-name: HideShadow;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+#logout img{
+    width: 25px;
+    height: 25px;
+}
+#logout{
+    position: absolute;
+    right: 30px;
+    top: 195px;
+}
