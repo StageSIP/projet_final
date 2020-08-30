@@ -10,6 +10,9 @@
     <title>Accueil</title>
 </head>
 <body>
+    <script>
+        var geojson="{% static 'accueil/TMIN.2M.96H.json' %}"
+    </script>
     <script src="{% static 'accueil/build/ol.js' %}"></script>
     <div id="map"></div>
     <div id="user">
@@ -45,7 +48,9 @@
             </ul>
         </div>
         <div id="close_btn"><img src="{% static 'accueil/img/close.svg' %}" alt="" ></div>
-        <script src="{% static 'accueil/index.js' %}"></script>
     </div>
+    <script src="{% static 'accueil/build/raster-marching-squares.min.js' %}"></script>
+    <script src="{% static 'accueil/d3.v4.js' %}"></script>
+    <script src="{% static 'accueil/index.js' %}"></script>
 </body>
 </html>
