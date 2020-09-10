@@ -7,6 +7,7 @@ html{height: 100%;}
 #map {
     height: 100%;
     width: 100%;
+    background-color: rgb(151, 151, 151);
   }
 #user{
     width: 50px;
@@ -148,4 +149,30 @@ a{
     position: absolute;
     right: 30px;
     top: 195px;
+}
+#options{
+    position: absolute;
+    top:150px;
+    left: 10px;
+    background-color: #fff;
+    width: 60px;
+    height: 50%;
+    border-radius: 20px;
+}
+.option{
+    width: 100%;
+    margin: 10px 0;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.option img{
+    width: 40px;
+    height: 40px;
+    border: 2px black solid;
+}
+.option p{
+    margin: 0 auto;
+    font-size: 10px;
 }

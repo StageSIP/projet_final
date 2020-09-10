@@ -11,7 +11,11 @@
 </head>
 <body>
     <script>
-        var geojson="{% static 'accueil/TMIN.2M.96H.json' %}"
+        var geojson="{% static 'accueil/CNTR_BN_60M_2020_3857.geojson' %}"
+        var [sc2,sc1]=["{% static 'accueil/index.js' %}","{% static 'accueil/index1.js' %}"]
+        var sc
+        function isolines(){sc=sc1}
+        function isobands(){sc=sc2}
     </script>
     <script src="{% static 'accueil/build/ol.js' %}"></script>
     <div id="map"></div>
@@ -20,6 +24,16 @@
     </div>
     <div id="ham">
         <img src="{% static 'accueil/img/ham.svg' %}" alt="">
+    </div>
+    <div id="options">
+        <div class="option" onclick="isolines()">
+            <img src="{% static 'accueil/img/isolines.png' %}" alt="">
+            <p>Isolignes</p>
+        </div>
+        <div class="option" onclick="isobands()">
+            <img src="{% static 'accueil/img/isobands.png' %}" alt="">
+            <p>Isobandes</p>
+        </div>
     </div>
     <div id="shadow" ></div>
     <div id="side_menu" >
