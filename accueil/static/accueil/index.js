@@ -13,9 +13,7 @@ close_btn.addEventListener("click",function(){
   shadow.className = "hide-shadow"; 
   menu.className = "hide-menu"; 
 });
-function load(){
-
-}
+// requete ajax pour collecter les donnees sous format json depuis le serveur
 var request = new XMLHttpRequest();
 request.open("GET", "temp", false);
 request.send(null)
@@ -25,6 +23,7 @@ var width=my_JSON_object['json'][0]['header']['Ni'];
 var [lo1,la1]=ol.proj.fromLonLat([my_JSON_object['json'][0]['header']['lo1'],my_JSON_object['json'][0]['header']['la1']])
 var [lo2,la2]=ol.proj.fromLonLat([my_JSON_object['json'][0]['header']['lo2'],my_JSON_object['json'][0]['header']['la2']])
 var dx = (lo2-lo1)/my_JSON_object['json'][0]['header']['Ni'], dy = (la2-la1)/my_JSON_object['json'][0]['header']['Nj'];
+// convertir la donnee de matrice 1D en matrice 2D
 var zData = new Array(height);
 for (var j = 0; j<height; j++){
     zData[j] = new Array(width);
@@ -32,8 +31,11 @@ for (var j = 0; j<height; j++){
         zData[j][i] = my_JSON_object['json'][0]['data'][i + j*width];
     }
 }
-var geoTransform = [lo1,dx,0,la1,0,dy];
+// regler le parametre geotransform (le cadre dans lequel le tracee va s'afficher)
+var geoTransform = [lo1,dx,0,la1,0,dy]
+// regler le parametre intervalsZ (la division des points de l'espace en des isolignes/isobandes)
 var intervalsZ = [-20,-15,-10,-5,0,5,10,15,20,25,30,25,30,35,40]
+// regler les couleurs pour les isobandes : retourne un tableau ds lequel le 1er couleur est de l'intervalle le plus bas
 var styles2 = (function(){
     let r=[]
     for(let i=0;i<14;i++){
@@ -45,79 +47,13 @@ var styles2 = (function(){
     }
     return r
 })()
+//fonction qui va delivrer pour chaque "feature (intervalle)" le couleur correspondant
 var styleFunction2 = function (feature) {
-    return styles[(feature.values_['0'].lowerValue+20)/5];
-};
-var styles1 = {
-    'Point': new ol.style.Style({
-        // image: image,
-    }),
-    'LineString': new ol.style.Style({
-        stroke: new ol.style.Stroke({
-            color: 'green',
-            width: 1,
-        }),
-    }),
-    'MultiLineString': new ol.style.Style({
-        stroke: new ol.style.Stroke({
-            color: 'green',
-            width: 2,
-        }),
-    }),
-    'MultiPoint': new ol.style.Style({
-        // image: image,
-    }),
-    'MultiPolygon': new ol.style.Style({
-        stroke: new ol.style.Stroke({
-            color: 'yellow',
-            width: 1,
-        }),
-        fill: new ol.style.Fill({
-            color: 'rgba(255, 255, 0, 0.1)',
-        }),
-    }),
-    'Polygon': new ol.style.Style({
-        stroke: new ol.style.Stroke({
-            color: 'blue',
-            lineDash: [4],
-            width: 3,
-        }),
-        fill: new ol.style.Fill({
-            color: 'rgba(0, 0, 255, 0.1)',
-        }),
-    }),
-    'GeometryCollection': new ol.style.Style({
-        stroke: new ol.style.Stroke({
-            color: 'magenta',
-            width: 2,
-        }),
-        fill: new ol.style.Fill({
-            color: 'magenta',
-        }),
-        image: new ol.style.Circle({
-            radius: 10,
-            fill: null,
-            stroke: new ol.style.Stroke({
-                color: 'magenta',
-            }),
-        }),
-    }),
-    'Circle': new ol.style.Style({
-        stroke: new ol.style.Stroke({
-            color: 'red',
-            width: 2,
-        }),
-        fill: new ol.style.Fill({
-            color: 'rgba(255,0,0,0.2)',
-        }),
-    }),
-  };
-  var styles=styles2
-  var styleFunction1 = function (feature) {
-    return styles[feature.getGeometry().getType()];
-  };
-var linesZ= rastertools.isolines(zData, geoTransform, intervalsZ);
-var styleFunction=styleFunction2
+    return styles2[(feature.values_['0'].lowerValue+20)/5];
+}
+// utilisation de biblio rastertools pour tracer les isolignes/isobandes
+var linesZ= rastertools.isobands(zData, geoTransform, intervalsZ)
+// objet geojson pour tracer le cadre qui contourne le tracee
 var box = {
   'type': 'FeatureCollection',
   'crs': {
@@ -136,16 +72,33 @@ var box = {
       },
   ]
 };
+//le layer correspondant aux isolignes
+var isolines_layer=new ol.layer.Group({
+    layers: [
+        new ol.layer.Vector({
+            source: new ol.source.Vector({
+                features: new ol.format.GeoJSON().readFeatures(linesZ),
+            }),
+            style: new ol.style.Style({
+                stroke: new ol.style.Stroke({
+                    color: 'green',
+                    width: 1,
+                })
+            })
+        })
+    ]
+});
+//le layer correspondant aux isobandes
+var isobands_layer=new ol.layer.Vector({
+    source: new ol.source.Vector({
+        features: new ol.format.GeoJSON().readFeatures(linesZ),
+    }),
+    style: styleFunction2})
 //openview map
 var map = new ol.Map({
   target: 'map',
   layers: [
-    new ol.layer.Vector({
-        source: new ol.source.Vector({
-            features: new ol.format.GeoJSON().readFeatures(linesZ),
-        }),
-        style: styleFunction
-    }),
+    isolines_layer,isobands_layer,
     new ol.layer.Vector({
         source: new ol.source.Vector({
             format: new ol.format.GeoJSON(),
@@ -153,7 +106,7 @@ var map = new ol.Map({
         }),
         style: new ol.style.Style({
             stroke: new ol.style.Stroke({
-                color: 'rgb(0, 150, 224)'
+                color: 'rgb(0, 130, 224)'
             })
         })
     }),
@@ -168,15 +121,15 @@ var map = new ol.Map({
     zoom: 1
   })
 });
+//fonction responsable a activer les isobandes et cacher les autres
 function isobands(){
     console.log("isobands")
-    linesZ= rastertools.isobands(zData, geoTransform, intervalsZ)
-    styles=styles2
-    styleFunction=styleFunction2
+    isobands_layer.setVisible(true)
+    isolines_layer.setVisible(false)
 }
+//fonction responsable a activer les isolignes et cacher les autres
 function isolines(){
     console.log("isolines")
-    linesZ= rastertools.isolines(zData, geoTransform, intervalsZ)
-    styles=styles1
-    styleFunction=styleFunction1
+    isolines_layer.setVisible(true)
+    isobands_layer.setVisible(false)
 }
