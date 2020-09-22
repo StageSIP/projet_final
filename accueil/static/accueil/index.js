@@ -126,16 +126,23 @@ fond.push(new ol.layer.Tile({
     title: 'Global Imagery',
     source: new ol.source.TileWMS({
         url: 'https://ahocevar.com/geoserver/wms',
-        params: { LAYERS: 'nasa:bluemarble', TILED: true }
+        params: { LAYERS: 'ne:NE1_HR_LC_SR_W_DR', TILED: true }
+    })
+}));
+fond.push(new ol.layer.Tile({
+    title: 'Stamen Toner',
+    preload: Infinity,
+    source: new ol.source.Stamen({
+        layer: 'toner',
     }),
-    visible: true
+    visible: false
 }));
 
 //openview map
 var map = new ol.Map({
     target: 'map',
     layers: [
-        fond[0], fond[1], fond[2],
+        fond[0], fond[1], fond[2], fond[3],
         isolines_layer, isobands_layer,
         new ol.layer.Vector({
             source: new ol.source.Vector({
