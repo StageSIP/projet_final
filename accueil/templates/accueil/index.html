@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,13 +10,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <title>Accueil</title>
 </head>
+
 <body>
     <script>
-        var geojson="{% static 'accueil/CNTR_BN_60M_2020_3857.geojson' %}"
-        var [sc2,sc1]=["{% static 'accueil/index.js' %}","{% static 'accueil/index1.js' %}"]
+        var geojson = "{% static 'accueil/CNTR_BN_60M_2020_3857.geojson' %}"
+        var [sc2, sc1] = ["{% static 'accueil/index.js' %}", "{% static 'accueil/index1.js' %}"]
         var sc
-        function isolines(){sc=sc1}
-        function isobands(){sc=sc2}
+
+        function isolines() {
+            sc = sc1
+        }
+
+        function isobands() {
+            sc = sc2
+        }
     </script>
     <script src="{% static 'accueil/build/ol.js' %}"></script>
     <div id="map"></div>
@@ -34,9 +42,15 @@
             <img src="{% static 'accueil/img/isobands.png' %}" alt="">
             <p>Isobandes</p>
         </div>
+        <div class="container" id="gestion_fond">
+            <div class="row btn btn-default fond" numero="0">fond1</div>
+            <div class="row btn btn-default fond" numero="1">fond2</div>
+            <div class="row btn btn-default fond" numero="2">fond3</div>
+            <div class="row btn btn-default fond" numero="3">fond4</div>
+        </div>
     </div>
-    <div id="shadow" ></div>
-    <div id="side_menu" >
+    <div id="shadow"></div>
+    <div id="side_menu">
         <div id="profile">
             <img src="{% static 'accueil/img/user.svg' %}" alt="">
             <h1>{{request.user.last_name}} {{request.user.first_name}}</h1>
@@ -61,10 +75,12 @@
                 <li><a href="">Production des Cartes NEBUL</a></li>
             </ul>
         </div>
-        <div id="close_btn"><img src="{% static 'accueil/img/close.svg' %}" alt="" ></div>
+        <div id="close_btn"><img src="{% static 'accueil/img/close.svg' %}" alt=""></div>
     </div>
+
     <script src="{% static 'accueil/build/raster-marching-squares.min.js' %}"></script>
     <script src="{% static 'accueil/d3.v4.js' %}"></script>
     <script src="{% static 'accueil/index.js' %}"></script>
 </body>
+
 </html>

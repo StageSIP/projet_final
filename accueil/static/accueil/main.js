@@ -18,7 +18,7 @@ var Circle = ol.geom.Circle,
 var image = new CircleStyle({
     radius: 5,
     fill: null,
-    stroke: new Stroke({color: 'red', width: 1}),
+    stroke: new Stroke({ color: 'red', width: 1 }),
 });
 
 var styles = {
@@ -86,9 +86,10 @@ var styles = {
     }),
 };
 
-var styleFunction = function (feature) {
+var styleFunction = function(feature) {
     return styles[feature.getGeometry().getType()];
 };
+
 function view() {
     var f = window.frameElement;
     var w = (f) ? f : window;
@@ -96,38 +97,43 @@ function view() {
     var b = document && document.getElementsByTagName("body")[0];
     var x = w.innerWidth || d.clientWidth || b.clientWidth;
     var y = w.innerHeight || d.clientHeight || b.clientHeight;
-    return {width: x, height: y};
+    return { width: x, height: y };
 }
-function array2D(data, Ni, Nj){
+
+function array2D(data, Ni, Nj) {
     var nData = new Array(Nj);
-    for (let j=0; j<Nj; j++){
+    for (let j = 0; j < Nj; j++) {
         nData[j] = new Array(Ni)
-        for(let i=0; i<Ni; i++){
-            nData[j][i] = data[j*Ni + i];
+        for (let i = 0; i < Ni; i++) {
+            nData[j][i] = data[j * Ni + i];
         }
     }
     return nData;
 }
 var dview = view()
 console.log("view ", dview.width, dview.height);
-d3.select(".map").attr("style", "width: "+ dview.width+"px; height: "+ dview.height+"px;");
+d3.select(".map").attr("style", "width: " + dview.width + "px; height: " + dview.height + "px;");
 
-d3.json(geojson, function(error, data){
+d3.json(geojson, function(error, data) {
     var header = data[0].header;
     var data = data[0].data;
-    var λ0 = header.lo1, φ0 = header.la1; 
-    var λ1 = header.lo2, φ1 = header.la2;
-    var Ni = header.Ni, Nj = header.Nj;
+    var λ0 = header.lo1,
+        φ0 = header.la1;
+    var λ1 = header.lo2,
+        φ1 = header.la2;
+    var Ni = header.Ni,
+        Nj = header.Nj;
     //
     var [x0, y0] = fromLonLat([λ0, φ0]);
     var [x1, y1] = fromLonLat([λ1, φ1]);
-    var centre = [λ0+(λ1-λ0)/2, φ0+(φ1-φ0)/2];
+    var centre = [λ0 + (λ1 - λ0) / 2, φ0 + (φ1 - φ0) / 2];
 
-    var dx = (x1-x0)/Ni, dy = (y1-y0)/Nj;
+    var dx = (x1 - x0) / Ni,
+        dy = (y1 - y0) / Nj;
     var geoTransform = [x0, dx, 0, y0, 0, dy];
     var ndata = array2D(data, Ni, Nj);
     var intervals = [];
-    for(let i=-20; i<=40; i+=2){ intervals.push(i)}
+    for (let i = -20; i <= 40; i += 2) { intervals.push(i) }
     var isolines = rastertools.isolines(ndata, geoTransform, intervals);
     console.log(isolines)
     var vectorSource1 = new VectorSource({
@@ -142,15 +148,20 @@ d3.json(geojson, function(error, data){
                 'name': 'EPSG:3857',
             },
         },
-        'features': [
-            {
-                'type': 'Feature',
-                'geometry': {
-                    'type': 'Polygon',
-                    'coordinates': [[[x0, y0],[x1, y0],[x1, y1],[x0, y1]]],
-                },
+        'features': [{
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates': [
+                    [
+                        [x0, y0],
+                        [x1, y0],
+                        [x1, y1],
+                        [x0, y1]
+                    ]
+                ],
             },
-        ]
+        }, ]
     };
     var vectorSource2 = new VectorSource({
         features: new GeoJSON().readFeatures(box),
@@ -176,7 +187,7 @@ d3.json(geojson, function(error, data){
         target: 'map',
         view: new View({
             center: fromLonLat(centre),
-            zoom: 3,
+            zoom: 5,
         }),
     });
 });

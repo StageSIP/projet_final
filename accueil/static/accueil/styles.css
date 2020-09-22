@@ -1,15 +1,20 @@
-body{
+body {
     margin: 0;
     height: 100%;
     font-family: 'Montserrat', sans-serif;
 }
-html{height: 100%;}
+
+html {
+    height: 100%;
+}
+
 #map {
     height: 100%;
     width: 100%;
     background-color: rgb(151, 151, 151);
-  }
-#user{
+}
+
+#user {
     width: 50px;
     height: 50px;
     position: absolute;
@@ -18,7 +23,8 @@ html{height: 100%;}
     border: grey 2px solid;
     border-radius: 50%;
 }
-#ham{
+
+#ham {
     width: 20px;
     height: 20px;
     padding: 4px 10px;
@@ -30,7 +36,8 @@ html{height: 100%;}
     border: #dadce0 2px solid;
     border-radius: 4px;
 }
-#shadow{
+
+#shadow {
     z-index: -1;
     width: 100%;
     height: 100%;
@@ -39,7 +46,8 @@ html{height: 100%;}
     top: 0;
     transition: 0.5s;
 }
-#side_menu{
+
+#side_menu {
     z-index: 2;
     position: absolute;
     top: 0;
@@ -50,7 +58,8 @@ html{height: 100%;}
     width: 0;
     transition: width 2s;
 }
-#profile{
+
+#profile {
     position: relative;
     text-align: center;
     font-size: 12px;
@@ -59,107 +68,150 @@ html{height: 100%;}
     padding: 20px 0;
     background-color: rgb(140, 204, 209);
 }
-#profile img{
+
+#profile img {
     height: 60%;
 }
-#menu{
+
+#menu {
     position: absolute;
     overflow-y: scroll;
     height: auto;
     bottom: 0;
     top: 240px;
 }
+
 ::-webkit-scrollbar {
     width: 10px;
 }
+
 ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
+    background: #f1f1f1;
 }
+
 ::-webkit-scrollbar-thumb {
-    background: #888; 
+    background: #888;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
+    background: #555;
 }
-#menu ul{
+
+#menu ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
-#menu li{
+
+#menu li {
     padding: 10px 0 10px 20px;
     margin-top: 2px;
     border-left: black 10px solid;
 }
-#menu li:hover{
+
+#menu li:hover {
     border-left: black 15px solid;
 }
-a{
+
+a {
     text-decoration: none;
     color: black;
 }
-#close_btn{
+
+#close_btn {
     width: 20px;
     position: absolute;
     top: 30px;
     right: 30px;
     cursor: pointer;
 }
+
 @keyframes ShowMenu {
-    from {width: 0px;}
-    to {width: 400px;}
+    from {
+        width: 0px;
+    }
+    to {
+        width: 400px;
+    }
 }
+
 @keyframes HideMenu {
-    from {width: 400px;}
-    to {width: 0;}
+    from {
+        width: 400px;
+    }
+    to {
+        width: 0;
+    }
 }
+
 @keyframes ShowShadow {
-    from {opacity: 0;z-index: -1;}
-    to {opacity: 1;z-index: 1;}
+    from {
+        opacity: 0;
+        z-index: -1;
+    }
+    to {
+        opacity: 1;
+        z-index: 1;
+    }
 }
+
 @keyframes HideShadow {
-    from {opacity: 1;z-index: 1;}
-    to {opacity: 0;z-index: -1;}
+    from {
+        opacity: 1;
+        z-index: 1;
+    }
+    to {
+        opacity: 0;
+        z-index: -1;
+    }
 }
-.show-menu{
+
+.show-menu {
     animation-name: ShowMenu;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
 }
-.hide-menu{
+
+.hide-menu {
     animation-name: HideMenu;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
 }
-.show-shadow{
+
+.show-shadow {
     animation-name: ShowShadow;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
 }
-.hide-shadow{
+
+.hide-shadow {
     animation-name: HideShadow;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
 }
-#logout img{
+
+#logout img {
     width: 25px;
     height: 25px;
 }
-#logout{
+
+#logout {
     position: absolute;
     right: 30px;
     top: 195px;
 }
-#options{
+
+#options {
     position: absolute;
-    top:150px;
+    top: 150px;
     left: 10px;
     background-color: #fff;
     width: 60px;
     height: 50%;
     border-radius: 20px;
 }
-.option{
+
+.option {
     width: 100%;
     margin: 10px 0;
     cursor: pointer;
@@ -167,12 +219,23 @@ a{
     flex-direction: column;
     align-items: center;
 }
-.option img{
+
+.option img {
     width: 40px;
     height: 40px;
     border: 2px black solid;
 }
-.option p{
+
+.option p {
     margin: 0 auto;
     font-size: 10px;
+}
+
+#gestion_fond {
+    border: 0.3px solid blueviolet;
+    background-color: #ffffff;
+}
+
+#gestion_fond .row {
+    border: 0.3px solid blueviolet;
 }
